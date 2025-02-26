@@ -86,7 +86,7 @@
             "نيفين عهدي نصيف": 54,
             "ماريان مكسيموس عجبان": 52,
             "ماريا اشرف نجيب": 51,
-            "ذكي اكرم ذكي": 56,
+            "ذكي اكرم ذكي": 46,
             "سيمون مدحت ذكي": 46,
             "بيشوي صابر عزيز": 46,
             "دميانة اشرف وجدي": 46,
@@ -138,8 +138,9 @@
                 setTimeout(() => resultList.classList.remove("shake"), 300);
             } else {
                 matchedResults.forEach(name => {
+                    let shortName = name.split(" ").slice(0, 3).join(" "); 
                     let li = document.createElement("li");
-                    li.innerText = `${name} - نتيجتك: ${results[name]} درجة`;
+                    li.innerText = `${shortName} - نتيجتك: ${results[name]} درجة`;
                     resultList.appendChild(li);
                 });
                 resultList.classList.add("show");
