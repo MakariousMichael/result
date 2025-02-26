@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نتيجتك</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f4f4f4;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+            border: 2px solid #007BFF;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+        button:active {
+            transform: scale(0.95);
+        }
+        #result {
+            font-size: 20px;
+            margin-top: 20px;
+            font-weight: bold;
+            color: blue;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        ul.show {
+            opacity: 1;
+        }
+        li {
+            background: white;
+            padding: 15px;
+            margin: 5px auto;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+            max-width: 400px;
+            cursor: pointer;
+        }
+        li:hover {
+            background: #007BFF;
+            color: white;
+            transform: translateY(-3px);
+        }
+        .shake {
+            animation: shake 0.3s ease-in-out;
+        }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+    <h2>اعرف نتيجتك</h2>
+    <input type="text" id="nameInput" placeholder="اكتب اسمك الثلاثي">
+    <button onclick="showResult()">عرض النتيجة</button>
+    <ul id="result"></ul>
+
+    <script>
+        const results = {
+            "ماري ثابت ذكي": 58,
+            "سعاد فكري صبحي": 56,
+            "نيفين عهدي نصيف": 54,
+            "ماريان مكسيموس عجبان": 52,
+            "ماريا اشرف نجيب": 51,
+            "ذكي اكرم ذكي": 46,
+            "سيمون مدحت ذكي": 46,
+            "بيشوي صابر عزيز": 46,
+            "دميانة اشرف وجدي": 46,
+            "بارثينيا القس انطونيوس": 44,
+            "كيرلس ابراهيم توحيد": 42,
+            "انطونيوس مكرم ارميا": 42,
+            "عماد نعيم بشري": 42,
+            "سيلفانا سامح فتحي": 42,
+            "كاترين ايمن نجيب": 42,
+            "اميرة كامل حنين": 42,
+            "رشا فيليب فهمي": 42,
+            "شادي سامي صبري": 42,
+            "دميانة عاطف جرجس": 42,
+            "سامح مدحت ذكي": 42,
+            "وردة رضا ابراهيم": 42,
+            "اوليفيا ناجح ميخائيل": 42,
+            "كريستين حنا نصيف": 42,
+            "ماريان ماهر وليم": 42,
+            "ماري خلف الله بشاي": 42,
+            "مريم ماهر وليم": 42,
+            "بيجول شنودة وديد": 42,
+            "مريم سعيد كمال": 42,
+            "كريستينا عياد محفوظ": 34,
+            "تريزة عياد شنودة": 33,
+            "فادي اشرف نجيب": 30,
+            "دميانة اكرم ذكي": 30,
+            "يوستينا فتحي جورج": 29,
+            "رفقة فتحي جورج": 28,
+            "كيرلس ملاك سمير": 23
+        };
+
+        function showResult() {
+            let input = document.getElementById("nameInput").value.trim();
+            let resultList = document.getElementById("result");
+            resultList.innerHTML = ""; 
+
+            if (input === "") {
+                resultList.innerHTML = "<li style='color: red;'>من فضلك أدخل اسمك الثلاثي!</li>";
+                resultList.classList.add("shake");
+                setTimeout(() => resultList.classList.remove("shake"), 300);
+                return;
+            }
+
+            let words = input.split(" ");
+            if (words.length < 3) {
+                resultList.innerHTML = "<li style='color: red;'>يرجى إدخال الاسم الثلاثي على الأقل!</li>";
+                resultList.classList.add("shake");
+                setTimeout(() => resultList.classList.remove("shake"), 300);
+                return;
+            }
+
+            let matchedResults = Object.keys(results).filter(name => name.includes(input));
+
+            if (matchedResults.length === 0) {
+                resultList.innerHTML = "<li style='color: red;'>لم يتم العثور على نتائج!</li>";
+                resultList.classList.add("shake");
+                setTimeout(() => resultList.classList.remove("shake"), 300);
+            } else {
+                matchedResults.forEach(name => {
+                    let li = document.createElement("li");
+                    let shortName = name.split(" ").slice(0, 3).join(" ");
+                    li.innerText = `${shortName} - نتيجتك: ${results[name]} درجة`;
+                    resultList.appendChild(li);
+                });
+                resultList.classList.add("show");
+            }
+        }
+    </script>
+</body>
+</html>
